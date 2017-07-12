@@ -9,6 +9,7 @@
 
 local p = premake
 local vstudio = p.vstudio
+local config = p.config
 
 p.DURANGO     = "durango"
 
@@ -137,6 +138,29 @@ p.override(vstudio.sln2005.elements, "projectConfigurationPlatforms", function(b
 	return calls
 end)
 
+
+p.override(vstudio.vc2010, "additionalDependencies", function(base, cfg, explicit)
+	-- Remove %(AdditionalDependencies) as that references Win32 libraries that aren't supported
+	if cfg.system ~= p.DURANGO then
+		return base(cfg, explicit)
+	end
+
+	local links
+
+	-- check to see if this project uses an external toolset. If so, let the
+	-- toolset define the format of the links
+	local toolset = config.toolset(cfg)
+	if toolset then
+		links = toolset.getlinks(cfg, not explicit)
+	else
+		links = vstudio.getLinks(cfg, explicit)
+	end
+
+	if #links > 0 then
+		links = path.translate(table.concat(links, ";"))
+		vstudio.vc2010.element("AdditionalDependencies", nil, "%s", links)
+	end
+end)
 
 ---
 -- AppxManifest group

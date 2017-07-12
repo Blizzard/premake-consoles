@@ -16,11 +16,32 @@
 
 	function suite.setup()
 		p.action.set("vs2015")
-		wks = test.createWorkspace()
+		wks, prj = test.createWorkspace()
 	end
 
 	local function prepare()
-		prj = test.getproject(wks, 1)
-		vc2010.projectConfigurations(prj)
+		kind "WindowedApp"
+		system "durango"
+		local cfg = test.getconfig(prj, "Debug", platform)
+		vc2010.linker(cfg)
 	end
 
+	function suite.emptyAdditionalDependencies()
+		prepare()
+		test.capture [[
+<Link>
+	<SubSystem>Windows</SubSystem>
+</Link>
+		]]
+	end
+
+	function suite.additionalDependencies()
+		links { 'kernelx' }
+		prepare()
+		test.capture [[
+<Link>
+	<SubSystem>Windows</SubSystem>
+	<AdditionalDependencies>kernelx.lib</AdditionalDependencies>
+</Link>
+		]]
+	end
