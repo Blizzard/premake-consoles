@@ -26,6 +26,16 @@ filter { "system:Durango", "kind:StaticLib" }
 	targetprefix ""
 	targetextension ".lib"
 
+--
+-- Properties
+--
+
+	p.api.register {
+		name = "compileaswinrt",
+		scope = "config",
+		kind = "boolean"
+	}
+
 
 --
 -- Methods.
@@ -43,7 +53,9 @@ local function xdkProperties(cfg)
 end
 
 local function winrt(cfg)
-	vstudio.vc2010.element("CompileAsWinRT", nil, 'true')
+	if cfg.compileaswinrt ~= nil then
+		vstudio.vc2010.element("CompileAsWinRT", nil, iif(cfg.compileaswinrt, "true", "false"))
+	end
 end
 
 local function deploy0(cfg, context)

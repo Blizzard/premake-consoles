@@ -4,7 +4,7 @@
 ---
 
 	local p = premake
-	local suite = test.declare("test_durango_project")
+	local suite = test.declare("durango_linker")
 	local vc2010 = p.vstudio.vc2010
 
 

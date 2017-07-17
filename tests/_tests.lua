@@ -1,5 +1,6 @@
 require ("consoles")
 
 return {
-	"test_durango_project.lua",
+	"durango/test_compile.lua",
+	"durango/test_linker.lua",
 }
