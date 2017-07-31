@@ -16,6 +16,11 @@ p.DURANGO     = "durango"
 if vstudio.vs2010_architectures ~= nil then
 	vstudio.vs2010_architectures.durango = "Durango"
 	p.api.addAllowed("system", p.DURANGO)
+
+	local os = p.option.get("os")
+	if os ~= nil then
+		table.insert(os.allowed, { p.DURANGO,  "Xbox One" })
+	end
 end
 
 
