@@ -7,5 +7,6 @@ if not premake.modules.consoles then
 	premake.modules.consoles = {}
 	local blizzard = premake.modules.consoles
 
-	include('durango.lua')
+	include 'durango.lua'
+	include 'durango_appxmanifest.lua'
 end

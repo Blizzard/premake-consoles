@@ -46,6 +46,15 @@ filter { "system:Durango", "kind:StaticLib" }
 -- Methods.
 --
 
+local function hasXboxConfig(prj)
+	for cfg in p.project.eachconfig(prj) do
+		if cfg.system == p.DURANGO then
+			return true
+		end
+	end
+	return false
+end
+
 local function xdkConfig(prj)
 	vstudio.vc2010.element("DefaultLanguage", nil, "en-US")
 	vstudio.vc2010.element("ApplicationEnvironment", nil, "title")
@@ -84,12 +93,8 @@ end
 p.override(vstudio.vc2010.elements, "globals", function(base, prj)
 	local calls = base(prj)
 
-	-- XDK Configuration is only for XB1
-	for cfg in p.project.eachconfig(prj) do
-		if cfg.system == p.DURANGO then
-			table.insert(calls, xdkConfig)
-			return calls
-		end
+	if hasXboxConfig(prj) then
+		table.insert(calls, xdkConfig)
 	end
 
 	return calls
@@ -178,20 +183,3 @@ p.override(vstudio.vc2010, "additionalDependencies", function(base, cfg, explici
 		vstudio.vc2010.element("AdditionalDependencies", nil, "%s", links)
 	end
 end)
-
----
--- AppxManifest group
----
-vstudio.vc2010.categories.AppxManifest = {
-	name       = "AppxManifest",
-	extensions = ".appxmanifest",
-	priority   = 4,
-
-	emitFiles = function(prj, group)
-		vstudio.vc2010.emitFiles(prj, group, "AppxManifest", nil, {excludedFromBuild})
-	end,
-
-	emitFilter = function(prj, group)
-		vstudio.vc2010.filterGroup(prj, group, "AppxManifest")
-	end
-}
