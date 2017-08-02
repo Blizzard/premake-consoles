@@ -7,6 +7,14 @@ local p       = premake
 local vstudio = p.vstudio
 local config  = p.config
 
+local resources = {
+	"consoles/assets/Logo.png",
+	"consoles/assets/SmallLogo.png",
+	"consoles/assets/SplashScreen.png",
+	"consoles/assets/StoreLogo.png",
+	"consoles/assets/WideLogo.png",
+}
+
 ---
 -- Local methods.
 ---
@@ -18,15 +26,40 @@ p.api.register {
 }
 
 p.override(p.oven, "bakeFiles", function (base, prj)
+	local files =  base(prj)
+
+	local function addFile(cfg, fname)
+		-- If this is the first time I've seen this file, start a new
+		-- file configuration for it. Track both by key for quick lookups
+		-- and indexed for ordered iteration.
+		local fcfg = files[fname]
+		if not fcfg then
+			fcfg = p.fileconfig.new(fname, prj)
+			fcfg.vpath = path.join("appxmanifest", fcfg.name)
+			files[fname] = fcfg
+			table.insert(files, fcfg)
+		end
+		p.fileconfig.addconfig(fcfg, cfg)
+	end
+
 	local fn = p.filename(prj, ".appxmanifest")
 	for cfg in p.project.eachconfig(prj) do
 		if cfg.system == p.DURANGO and cfg.dummyappxmanifest then
-			table.insertkeyed(cfg.files, fn)
+			addFile(cfg, fn)
+
+			for _, asset in ipairs(resources) do
+				addFile(cfg, path.join(prj.location, path.getname(asset)))
+			end
+
 			prj._createsDummyManifest = true
 		end
 	end
 
-	return base(prj)
+	table.sort(files, function(a,b)
+		return a.vpath < b.vpath
+	end)
+
+	return files
 end)
 
 
@@ -90,13 +123,12 @@ local function generateAppxManifest(prj)
 	p.pop('</Application>')
 	p.pop('</Applications>')
 
-	p.push('<Capabilities>')
+	--p.push('<Capabilities>')
 	--p.w('<Capability Name="internetClientServer" />');
-	p.pop('</Capabilities>')
+	--p.pop('</Capabilities>')
 
-	p.push('<Extensions>')
-	--p.w('<Capability Name="internetClientServer" />');
-	p.pop('</Extensions>')
+	--p.push('<Extensions>')
+	--p.pop('</Extensions>')
 
 	p.pop('</Package>')
 end
@@ -109,13 +141,6 @@ p.override(vstudio.vs2010, "generateProject", function(base, prj)
 			generateAppxManifest(prj)
 		end)
 
-		local resources = {
-			"consoles/assets/Logo.png",
-			"consoles/assets/SmallLogo.png",
-			"consoles/assets/SplashScreen.png",
-			"consoles/assets/StoreLogo.png",
-			"consoles/assets/WideLogo.png",
-		}
 		for _, asset in ipairs(resources) do
 			local file = p.getEmbeddedResource(asset)
 			if file ~= nil then
