@@ -116,9 +116,7 @@ p.override(vstudio.vc2010, "libraryPath", function(base, cfg)
 
 	local dirs = vstudio.path(cfg, cfg.syslibdirs)
 	table.insert(dirs, '$(Console_SdkLibPath)')
-	if #dirs > 0 then
-		vstudio.vc2010.element("LibraryPath", nil, "%s;$(LibraryPath)", table.concat(dirs, ";"))
-	end
+	vstudio.vc2010.element("LibraryPath", nil, "%s", table.concat(dirs, ";"))
 end)
 
 p.override(vstudio.vc2010, "includePath", function(base, cfg)
@@ -128,7 +126,7 @@ p.override(vstudio.vc2010, "includePath", function(base, cfg)
 
 	local dirs = vstudio.path(cfg, cfg.sysincludedirs)
 	table.insert(dirs, '$(Console_SdkIncludeRoot)')
-	vstudio.vc2010.element("IncludePath", nil, "%s;$(IncludePath)", table.concat(dirs, ";"))
+	vstudio.vc2010.element("IncludePath", nil, "%s", table.concat(dirs, ";"))
 end)
 
 p.override(vstudio.vc2010, "executablePath", function(base, cfg)
@@ -137,8 +135,19 @@ p.override(vstudio.vc2010, "executablePath", function(base, cfg)
 	end
 
 	local dirs = vstudio.path(cfg, cfg.bindirs)
-	table.insert(dirs, '$(Console_SdkRoot)bin;$(VCInstallDir)bin\\x86_amd64')
-	vstudio.vc2010.element("ExecutablePath", nil, "%s;$(ExecutablePath)", table.concat(dirs, ";"))
+	table.insert(dirs, '$(Console_SdkRoot)bin')
+	table.insert(dirs, '$(VCInstallDir)bin\\x86_amd64')
+	table.insert(dirs, '$(VCInstallDir)bin')
+	table.insert(dirs, '$(WindowsSDK_ExecutablePath_x86)')
+	table.insert(dirs, '$(VSInstallDir)Common7\\Tools\\bin')
+	table.insert(dirs, '$(VSInstallDir)Common7\\tools')
+	table.insert(dirs, '$(VSInstallDir)Common7\\ide')
+	table.insert(dirs, '$(ProgramFiles)\\HTML Help Workshop')
+	table.insert(dirs, '$(MSBuildToolsPath32)')
+	table.insert(dirs, '$(FxCopDir)')
+	table.insert(dirs, '$(PATH)')
+
+	vstudio.vc2010.element("ExecutablePath", nil, "%s", table.concat(dirs, ";"))
 end)
 
 p.override(vstudio.vc2010.elements, "clCompile", function(base, cfg)
