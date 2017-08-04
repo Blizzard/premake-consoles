@@ -21,6 +21,9 @@ if vstudio.vs2010_architectures ~= nil then
 	if os ~= nil then
 		table.insert(os.allowed, { p.DURANGO,  "Xbox One" })
 	end
+
+	-- add system tags for durango
+	os.systemTags[p.DURANGO]     = { "durango", "xboxone", "console" }
 end
 
 
