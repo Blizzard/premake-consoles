@@ -17,13 +17,12 @@ if vstudio.vs2010_architectures ~= nil then
 	vstudio.vs2010_architectures.durango = "Durango"
 	p.api.addAllowed("system", p.DURANGO)
 
-	local os = p.option.get("os")
-	if os ~= nil then
-		table.insert(os.allowed, { p.DURANGO,  "Xbox One" })
-	end
+	os.systemTags[p.DURANGO] = { "durango", "xboxone", "console" }
 
-	-- add system tags for durango
-	os.systemTags[p.DURANGO]     = { "durango", "xboxone", "console" }
+	local osoption = p.option.get("os")
+	if osoption ~= nil then
+		table.insert(osoption.allowed, { p.DURANGO,  "Xbox One" })
+	end
 end
 
 
