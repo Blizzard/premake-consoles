@@ -7,6 +7,8 @@ return {
 	'consoles.lua',
 	'durango.lua',
 	'durango_appxmanifest.lua',
+	'xboxone.lua',
+	'xboxone_gdk.lua',
 	'assets/Logo.png',
 	'assets/SmallLogo.png',
 	'assets/SplashScreen.png',

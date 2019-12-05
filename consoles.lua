@@ -9,4 +9,6 @@ if not premake.modules.consoles then
 
 	include 'durango.lua'
 	include 'durango_appxmanifest.lua'
+	include 'xboxone_gdk.lua'
+	include 'xboxone.lua'
 end
