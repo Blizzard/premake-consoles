@@ -26,6 +26,9 @@ if vstudio.vs2010_architectures ~= nil then
 end
 
 
+filter { "system:Durango" }
+	architecture "x86_64"
+
 filter { "system:Durango", "kind:ConsoleApp or WindowedApp" }
 	targetextension ".exe"
 

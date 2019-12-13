@@ -27,6 +27,9 @@ if vstudio.vs2010_architectures ~= nil then
 end
 
 
+filter { "system:xboxone_gdk" }
+	architecture "x86_64"
+
 filter { "system:xboxone_gdk", "kind:ConsoleApp or WindowedApp" }
 	targetextension ".exe"
 
