@@ -115,17 +115,22 @@ p.override(vc2010, "executablePath", function(base, cfg)
 	end
 
 	local dirs = vstudio.path(cfg, cfg.bindirs)
-	table.insert(dirs, '$(Console_SdkRoot)bin')
-	table.insert(dirs, '$(VCInstallDir)bin\\x86_amd64')
-	table.insert(dirs, '$(VCInstallDir)bin')
-	table.insert(dirs, '$(WindowsSDK_ExecutablePath_x86)')
-	table.insert(dirs, '$(VSInstallDir)Common7\\Tools\\bin')
-	table.insert(dirs, '$(VSInstallDir)Common7\\tools')
-	table.insert(dirs, '$(VSInstallDir)Common7\\ide')
-	table.insert(dirs, '$(ProgramFiles)\\HTML Help Workshop')
-	table.insert(dirs, '$(MSBuildToolsPath32)')
-	table.insert(dirs, '$(FxCopDir)')
-	table.insert(dirs, '$(PATH)')
+	if isXdkConfig(cfg) then
+		table.insert(dirs, '$(Console_SdkRoot)bin')
+		table.insert(dirs, '$(VCInstallDir)bin\\x86_amd64')
+		table.insert(dirs, '$(VCInstallDir)bin')
+		table.insert(dirs, '$(WindowsSDK_ExecutablePath_x86)')
+		table.insert(dirs, '$(VSInstallDir)Common7\\Tools\\bin')
+		table.insert(dirs, '$(VSInstallDir)Common7\\tools')
+		table.insert(dirs, '$(VSInstallDir)Common7\\ide')
+		table.insert(dirs, '$(ProgramFiles)\\HTML Help Workshop')
+		table.insert(dirs, '$(MSBuildToolsPath32)')
+		table.insert(dirs, '$(FxCopDir)')
+		table.insert(dirs, '$(PATH)')
+	else
+		table.insert(dirs, '$(Console_SdkRoot)bin')
+		table.insert(dirs, '$(Console_SdkToolPath)')
+	end
 
 	vc2010.element("ExecutablePath", nil, "%s", table.concat(dirs, ";"))
 end)
