@@ -33,6 +33,7 @@
 	<PrecompiledHeader>NotUsing</PrecompiledHeader>
 	<WarningLevel>Level3</WarningLevel>
 	<Optimization>Disabled</Optimization>
+	<CompileAsWinRT>false</CompileAsWinRT>
 </ClCompile>
 		]]
 	end

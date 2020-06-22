@@ -36,3 +36,5 @@ filter { "system:scarlett", "kind:ConsoleApp or WindowedApp" }
 filter { "system:scarlett", "kind:StaticLib" }
 	targetprefix ""
 	targetextension ".lib"
+
+filter {}

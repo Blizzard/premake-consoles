@@ -8,9 +8,9 @@ if not premake.modules.consoles then
 	local blizzard = premake.modules.consoles
 
 	-- xbox
+	include 'xbox.lua'
 	include 'durango.lua'
 	include 'durango_appxmanifest.lua'
 	include 'scarlett.lua'
-	include 'xbox.lua'
 	include 'xboxone_gdk.lua'
 end

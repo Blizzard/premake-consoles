@@ -35,3 +35,5 @@ filter { "system:xboxone_gdk", "kind:ConsoleApp or WindowedApp" }
 filter { "system:xboxone_gdk", "kind:StaticLib" }
 	targetprefix ""
 	targetextension ".lib"
+
+filter {}

@@ -36,15 +36,17 @@ filter { "system:Durango", "kind:StaticLib" }
 	targetprefix ""
 	targetextension ".lib"
 
+filter {}
+
 --
 -- Properties
 --
 
-	p.api.register {
-		name = "compileaswinrt",
-		scope = "config",
-		kind = "boolean"
-	}
+p.api.register {
+	name = "compileaswinrt",
+	scope = "config",
+	kind = "boolean"
+}
 
 
 --
@@ -52,9 +54,7 @@ filter { "system:Durango", "kind:StaticLib" }
 --
 
 local function winrt(cfg)
-	if cfg.compileaswinrt ~= nil then
-		vc2010.element("CompileAsWinRT", nil, iif(cfg.compileaswinrt, "true", "false"))
-	end
+	vc2010.element("CompileAsWinRT", nil, iif(cfg.compileaswinrt, "true", "false"))
 end
 
 --
