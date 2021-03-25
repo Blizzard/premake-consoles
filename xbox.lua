@@ -64,6 +64,11 @@ end
 local function consoleProperties(cfg)
 	vc2010.element("ReferencePath", nil, "$(Console_SdkLibPath);$(Console_SdkWindowsMetadataPath)")
 	vc2010.element("LibraryWPath", nil, "$(Console_SdkLibPath);$(Console_SdkWindowsMetadataPath)")
+
+	if cfg.xbox_layoutdir then
+		local layoutdir = p.vstudio.path(cfg, cfg.xbox_layoutdir)
+		vc2010.element("LayoutDir", nil, layoutdir)
+	end
 end
 
 local function deploy0(cfg, context)
@@ -157,6 +162,12 @@ p.api.register {
 	name = "xbox_dummymanifest",
 	scope = "config",
 	kind = "boolean"
+}
+
+p.api.register {
+	name = "xbox_layoutdir",
+	scope = "config",
+	kind = "path"
 }
 
 p.api.alias("xbox_dummymanifest", "dummyappxmanifest")
