@@ -1,10 +1,10 @@
 --
--- Xbox One XDK tests
+-- Xbox Series X/S tests
 -- Copyright Blizzard Entertainment, Inc
 --
 
 	local p = premake
-	local suite = test.declare("durango_linker")
+	local suite = test.declare("scarlett_linker")
 	local vc2010 = p.vstudio.vc2010
 
 
@@ -15,13 +15,13 @@
 	local wks, prj
 
 	function suite.setup()
-		p.action.set("vs2017")
+		p.action.set("vs2019")
 		wks, prj = test.createWorkspace()
 	end
 
 	local function prepare()
 		kind "WindowedApp"
-		system "durango"
+		system "scarlett"
 		local cfg = test.getconfig(prj, "Debug", platform)
 		vc2010.linker(cfg)
 	end
@@ -31,6 +31,7 @@
 		test.capture [[
 <Link>
 	<SubSystem>Windows</SubSystem>
+	<AdditionalDependencies>$(Console_Libs);%(XboxExtensionsDependencies)</AdditionalDependencies>
 </Link>
 		]]
 	end
@@ -41,7 +42,7 @@
 		test.capture [[
 <Link>
 	<SubSystem>Windows</SubSystem>
-	<AdditionalDependencies>kernelx.lib</AdditionalDependencies>
+	<AdditionalDependencies>kernelx.lib;$(Console_Libs);%(XboxExtensionsDependencies)</AdditionalDependencies>
 </Link>
 		]]
 	end

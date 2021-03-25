@@ -1,10 +1,10 @@
----
--- Console support for premake.
--- Copyright (c) 2017 Blizzard Entertainment
----
+--
+-- Xbox One XDK tests
+-- Copyright Blizzard Entertainment, Inc
+--
 
 	local p = premake
-	local suite = test.declare("duranago_compile")
+	local suite = test.declare("durango_compile")
 	local vc2010 = p.vstudio.vc2010
 
 
@@ -15,7 +15,7 @@
 	local wks, prj
 
 	function suite.setup()
-		p.action.set("vs2015")
+		p.action.set("vs2017")
 		wks, prj = test.createWorkspace()
 	end
 

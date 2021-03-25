@@ -1,12 +1,11 @@
----
+--
 -- Console support for premake.
--- Copyright (c) 2017 Blizzard Entertainment
----
+-- Copyright Blizzard Entertainment, Inc
+--
 
 return {
 	'consoles.lua',
 	'durango.lua',
-	'durango_appxmanifest.lua',
 	'xbox.lua',
 	'xboxone_gdk.lua',
 	'assets/Logo.png',

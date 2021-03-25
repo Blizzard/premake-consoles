@@ -1,5 +1,5 @@
 --
--- Add Xbox GDK support to Visual Studio backend.
+-- Xbox One GDK support for Visual Studio backend.
 -- Copyright Blizzard Entertainment, Inc
 --
 

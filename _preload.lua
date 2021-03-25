@@ -1,7 +1,7 @@
----
+--
 -- Console support for premake.
--- Copyright (c) 2017 Blizzard Entertainment
----
+-- Copyright Blizzard Entertainment, Inc
+--
 
 	include("consoles.lua")
 

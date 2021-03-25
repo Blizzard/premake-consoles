@@ -1,5 +1,5 @@
 --
--- Add Durango support to Visual Studio backend.
+-- Xbox One XDK support for Visual Studio backend.
 -- Copyright Blizzard Entertainment, Inc
 --
 
@@ -17,11 +17,11 @@ if vstudio.vs2010_architectures ~= nil then
 	vstudio.vs2010_architectures.durango = "Durango"
 	p.api.addAllowed("system", p.DURANGO)
 
-	os.systemTags[p.DURANGO] = { "durango", "xboxone", "xdk", "xbox", "console" }
+	os.systemTags[p.DURANGO] = { "durango", "xboxone_xdk", "xboxone", "xdk", "xbox", "console" }
 
 	local osoption = p.option.get("os")
 	if osoption ~= nil then
-		table.insert(osoption.allowed, { p.DURANGO,  "Xbox One" })
+		table.insert(osoption.allowed, { p.DURANGO,  "Xbox One (XDK)" })
 	end
 end
 

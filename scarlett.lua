@@ -1,5 +1,5 @@
 --
--- Add Scarlett support to Visual Studio backend.
+-- Xbox Series X/S support for Visual Studio backend.
 -- Copyright Blizzard Entertainment, Inc
 --
 
@@ -22,7 +22,7 @@ if vstudio.vs2010_architectures ~= nil then
 
 	local osoption = p.option.get("os")
 	if osoption ~= nil then
-		table.insert(osoption.allowed, { p.SCARLETT,  "Scarlett" })
+		table.insert(osoption.allowed, { p.SCARLETT,  "Xbox Series X/S" })
 	end
 end
 

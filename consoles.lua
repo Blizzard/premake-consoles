@@ -1,7 +1,7 @@
----
+--
 -- Console support for premake.
--- Copyright (c) 2017 Blizzard Entertainment
----
+-- Copyright Blizzard Entertainment, Inc
+--
 
 if not premake.modules.consoles then
 	premake.modules.consoles = {}
@@ -10,7 +10,6 @@ if not premake.modules.consoles then
 	-- xbox
 	include 'xbox.lua'
 	include 'durango.lua'
-	include 'durango_appxmanifest.lua'
 	include 'scarlett.lua'
 	include 'xboxone_gdk.lua'
 end
