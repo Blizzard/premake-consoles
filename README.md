@@ -17,7 +17,7 @@ Clone or download this repository somewhere Premake will be able to find it.
 In your project's premake script import the module:
 
 ```lua
-require("premake-consoles/consoles.lua")
+require("premake-consoles/consoles")
 ```
 
 This will add the following new options to `system`:

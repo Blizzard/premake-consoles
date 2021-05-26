@@ -4,8 +4,8 @@
 --
 
 if not premake.modules.consoles then
+	require('vstudio')
 	premake.modules.consoles = {}
-	local blizzard = premake.modules.consoles
 
 	-- xbox
 	include 'xbox.lua'
